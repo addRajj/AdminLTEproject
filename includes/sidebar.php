@@ -34,6 +34,7 @@
       <nav class="mt-2">
         <ul>
           <li><a href="registered.php">Admin Registration</a></li>
+          <li><a href="events.php">Events</a></li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

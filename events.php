@@ -9,11 +9,11 @@ include('config/dbcon.php');
 <div class="content-wrapper">
 
     <!-- Model To add Admin -->
-    <div class="modal fade" id="AddUserModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="AddAdminModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Admin</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -22,34 +22,33 @@ include('config/dbcon.php');
             <div class="modal-body">
               <!-- Now here we will create the modal for our Resgistration process -->
               <div class="form-group">
-                <label for="">Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Name">
+                <label for="">Event Title</label>
+                <input type="text" name="title" class="form-control" placeholder="title">
               </div>
               <div class="form-group">
-                <label for="">Email Id</label>
-                <input type="email" class="form-control" name="email" placeholder="Name">
+                <label for="">Upload Image</label>
+                <input type="file"  name="image" accept="image/*">
               </div>
               <div class="form-group">
-                <label for="">Phone Number</label>
-                <input type="text" name="phone" class="form-control" placeholder="Name">
+                <label for="">Upload Video</label>
+                <input type="file"  name="video" id="videoUpload" accept="video/*">
               </div>
               <div class="form-group">
-                <label for="">Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Name">
+                <label for="">Description</label>
+                <textarea id="desc" rows="3" name="desc" cols="50" placeholder="Enter event name" class="form-control"></textarea>
               </div>
               <div class="form-group">
-                <label for="">Role</label>
-                <br>
-                <input type="radio" id="admin" name="role" value="admin">
-                <label for="admin">admin</label>
-                <input type="radio" id="user" name="role" value="user">
-                <label for="user">user</label>
+                <label for="">Event Date </label>
+                <input type="date" name="date" class="form-control" placeholder="">
               </div>
-
+              <div class="form-group">
+                <label for="">Event Time</label>
+                <input type="time" name="time" class="form-control" placeholder="">
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary" name="addAdmin">Save changes</button>
+              <button type="submit" class="btn btn-primary" name="addEvent">Save Event</button>
             </div>
             </form>
           </div>
@@ -85,12 +84,12 @@ include('config/dbcon.php');
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Register Admin</h1>
+            <h1 class="m-0">Events Handling</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Register Admin</li>
+              <li class="breadcrumb-item active">Events Handling</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -110,8 +109,8 @@ include('config/dbcon.php');
           ?>
           <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Admin DataTable</h3>
-                      <a href="#" data-toggle="modal" data-target="#AddUserModel" class="btn btn-primary btn-sm float-right">Add Admin</a>
+                      <h3 class="card-title">Events DataTable</h3>
+                      <a href="#" data-toggle="modal" data-target="#AddAdminModel" class="btn btn-primary btn-sm float-right">Add Events</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -119,10 +118,12 @@ include('config/dbcon.php');
                         <thead>
                         <tr>
                           <th>Id</th>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Phone Number</th>
-                          <th>Role</th>
+                          <th>Title</th>
+                          <th>Image</th>
+                          <th>Video URL</th>
+                          <th>Description</th>
+                          <th>Venue</th>
+                          <th>Date & Time</th>
                           <th>Action</th>
                         </tr>
                         </thead>
@@ -141,7 +142,6 @@ include('config/dbcon.php');
                                     <td><?php echo $row['email']; ?>
                                     </td>
                                     <td><?php echo $row['phone']; ?></td>
-                                    <td><?php echo $row['role']; ?></td>
                                     <td>
                                       <a href="registered-edit.php?user_id=<?php echo $row['id']; ?>"  class="btn btn-info btn-sm">Edit</a>
                                       <a href="registered-delete.php?user_id=<?php echo $row['id']; ?>"class="btn btn-danger btn-sm">Delete</a>

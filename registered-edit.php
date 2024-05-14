@@ -29,7 +29,7 @@ include('config/dbcon.php');
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Edit-Admin Detail</h3>
+                            <h3 class="card-title">Edit User/Admin Detail</h3>
                             <a href="registered.php" class="btn btn-primary btn-sm float-right">Back</a>
                         </div>
                         <!-- /.card-header -->
@@ -77,6 +77,14 @@ include('config/dbcon.php');
                                                             type="password" name="password" class="form-control"
                                                             value="<?php echo $row['password']?> " 
                                                             placeholder="Password">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="">Role</label>
+                                                            <br>
+                                                            <input type="radio" id="admin" name="role" value="admin">
+                                                            <label for="admin">admin</label>
+                                                            <input type="radio" id="user" name="role" value="user">
+                                                            <label for="user">user</label>
                                                         </div>
                                                     <?php
                                                 }

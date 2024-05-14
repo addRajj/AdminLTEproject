@@ -7,8 +7,9 @@ if(isset($_POST['addAdmin']))
     $email=$_POST['email'];
     $phone=$_POST['phone'];
     $password=$_POST['password'];
+    $role=$_POST['role'];
     
-    $sql="INSERT INTO admindetail(name,phone,email,password) VALUES('$name','$phone','$email','$password')";
+    $sql="INSERT INTO admindetail(name,phone,email,password, role) VALUES('$name','$phone','$email','$password', '$role')";
 
     $query_result=mysqli_query($conn, $sql);
     if($query_result)
@@ -29,8 +30,9 @@ if(isset($_POST['UpdateAdmin']))
     $email=$_POST['email'];
     $phone=$_POST['phone'];
     $password=$_POST['password'];
+    $role=$_POST['role'];
 
-    $sql="UPDATE admindetail set name='$name',phone='$phone', email='$email',password='$password' WHERE id='$user_id'";
+    $sql="UPDATE admindetail set name='$name',phone='$phone', email='$email',password='$password' ,  role='$role' WHERE id='$user_id'";
 
     $sql_result=mysqli_query($conn, $sql);
     if($sql_result)
@@ -69,4 +71,87 @@ if(isset($_POST['DeleteAdmin']))
     }
 
 }
+// if(isset($_POST['addEvent']))
+// {
+
+//     $e_title=$_POST['title'];
+//     $e_image=$_POST['image'];
+//     $e_venue=$_POST['venue'];
+//     $e_video=$_POST['video'];
+//     $e_date=$_POST['date'];
+//     $e_time=$_POST['time'];
+//     $e_desc=$_POST['desc'];
+
+//     // image information
+//     $img_name=$_FILES['image']['name'];
+//     $img_size=$_FILES['image']['size'];
+//     $tmp_name=$_FILES['image']['tmp_name'];
+//     $image_error=$_FILES['image']['error'];
+
+//     // video information
+//     $video_name = $_FILES['my_video']['name'];
+//     $tmp_name = $_FILES['my_video']['tmp_name'];
+//     $video_error = $_FILES['my_video']['error'];
+
+//     if ($video_error === 0 && $image_error === 0) {
+//         if($img_size>125000)
+//         {
+//             echo "<script>";
+//             echo "alert('image is out of bound!')";
+//             echo "</script>";
+//             die();
+//         }
+//         $img_ex=pathinfo($img_name, PATHINFO_EXTENSION);
+//         $img_ex_lc=strtolower($img_ex);
+//         $allowed_img_exs=array("jpg", "jpeg", "png");
+//     	$video_ex = pathinfo($video_name, PATHINFO_EXTENSION);
+//     	$video_ex_lc = strtolower($video_ex);
+//     	$allowed_vid_exs = array("mp4", 'webm', 'avi', 'flv');
+
+//     	if (in_array($video_ex_lc, $allowed_vid_exs) && in_array($img_ex_lc, $allowed_img_exs)) {
+    		
+//     		$new_video_name = uniqid("video-", true). '.'.$video_ex_lc;
+//     		$video_upload_path = 'UploadedVideo/'.$new_video_name;
+//     		move_uploaded_file($tmp_name, $video_upload_path);
+
+//     		// Now let's Insert the video path into database
+//             $sql = "INSERT INTO videos(video_url) 
+//                    VALUES('$new_video_name')";
+//             mysqli_query($conn, $sql);
+//             header("Location: view.php");
+//     	}else {
+//     		$em = "You can't upload files of this type";
+//     		header("Location: index.php?error=$em");
+//     	}
+//     }
+            
+//             else
+//             {
+                
+//                 if(in_array($img_ex_lc, $allowed_exs))
+//                 {
+//                     // echo "hello hi";
+//                     $new_img_name=uniqid("IMG-", true).'.'.$img_ex_lc;
+//                     $img_upload_path='uploads/'.$new_img_name;
+//                     move_uploaded_file($tmp_name,$img_upload_path );
+
+//                     $sql="INSERT INTO images(`image_url`) VALUES ('$new_img_name')";
+//                     $result=mysqli_query($conn, $sql);
+//                     if(!$result)
+//                     echo "Images not stored in DB";
+//                     header("location: view.php");
+//                 }
+//                 else
+//                 {
+//                     $em="You can't upload files of this type";
+//                     header("location: index.php?error=$em");
+//                 }
+
+                
+//             }
+//         }
+
+
+    
+// }
 ?>
