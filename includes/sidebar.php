@@ -14,7 +14,15 @@
           <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="profile.php" class="d-block">Aditya Raj Sharma</a>
+          <a href="profile.php" class="d-block">
+          <?php 
+          if (isset($_SESSION['email'])) {
+            $email = $_SESSION['email'];
+            echo "$email<br>";
+        }
+
+          
+          ?></a>
         </div>
       </div>
 
@@ -35,7 +43,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-header">Features</li>
           <li class="nav-item">
-            <a href="profileadmin.php" class="nav-link">
+            <a href="profileadmin.php?email=<?php echo ($email);?>" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>
                 Profile

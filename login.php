@@ -17,6 +17,7 @@ if(isset($_POST['submit'])){
       $_SESSION['user_id']=$fetch['id'];
       if($fetch['role']==="admin")
       {
+         $_SESSION['user_email']=$fetch['email'];
          header('location: indexadmin.php');
          exit();
       }

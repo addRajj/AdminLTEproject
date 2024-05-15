@@ -1,4 +1,9 @@
 <?php
+session_start();
+
+// Set session variables
+$login_email=$_SESSION['user_email'];
+$_SESSION['email']=$login_email;
 include('includes/header.php');
 include('includes/topbar.php');
 include('includes/sidebar.php');
