@@ -147,8 +147,8 @@ include('config/dbcon.php');
                                     <td><?php echo $row['date']; ?></td>
                                     <td><?php echo $row['Time']; ?></td>
                                     <td>
-                                      <a href="registered-edit.php?user_id=<?php echo $row['id']; ?>"  class="btn btn-info btn-sm">Edit</a>
-                                      <a href="registered-delete.php?user_id=<?php echo $row['id']; ?>"class="btn btn-danger btn-sm">Delete</a>
+                                      <a href="events-edit.php?user_id=<?php echo $row['id']; ?>"  class="btn btn-info btn-sm">Edit</a>
+                                      <a href="event-delete.php?user_id=<?php echo $row['id']; ?>"class="btn btn-danger btn-sm">Delete</a>
                                     </td>
                                   </tr>
                                 <?php
