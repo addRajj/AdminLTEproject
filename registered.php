@@ -111,7 +111,7 @@ include('config/dbcon.php');
           <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Admin DataTable</h3>
-                      <a href="#" data-toggle="modal" data-target="#AddUserModel" class="btn btn-primary btn-sm float-right">Add Admin</a>
+                      <a href="#" data-toggle="modal" data-target="#AddUserModel" class="btn btn-primary btn-sm float-right">Add Admin/User</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

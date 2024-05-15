@@ -9,6 +9,13 @@ if(isset($_POST['addAdmin']))
     $password=$_POST['password'];
     $role=$_POST['role'];
     
+    $sql1="SELECT * FROM admindetail WHERE email='$email'";
+    $sql_result=mysqli_query($conn, $sql1);
+    if(mysqli_num_rows($sql_result)>0)
+    {
+        die("The email is already registered");
+        header("location: registered.php");
+    }
     $sql="INSERT INTO admindetail(name,phone,email,password, role) VALUES('$name','$phone','$email','$password', '$role')";
 
     $query_result=mysqli_query($conn, $sql);
@@ -71,87 +78,52 @@ if(isset($_POST['DeleteAdmin']))
     }
 
 }
-// if(isset($_POST['addEvent']))
-// {
+if(isset($_POST['addEvent']))
+{
 
-//     $e_title=$_POST['title'];
-//     $e_image=$_POST['image'];
-//     $e_venue=$_POST['venue'];
-//     $e_video=$_POST['video'];
-//     $e_date=$_POST['date'];
-//     $e_time=$_POST['time'];
-//     $e_desc=$_POST['desc'];
-
-//     // image information
-//     $img_name=$_FILES['image']['name'];
-//     $img_size=$_FILES['image']['size'];
-//     $tmp_name=$_FILES['image']['tmp_name'];
-//     $image_error=$_FILES['image']['error'];
-
-//     // video information
-//     $video_name = $_FILES['my_video']['name'];
-//     $tmp_name = $_FILES['my_video']['tmp_name'];
-//     $video_error = $_FILES['my_video']['error'];
-
-//     if ($video_error === 0 && $image_error === 0) {
-//         if($img_size>125000)
-//         {
-//             echo "<script>";
-//             echo "alert('image is out of bound!')";
-//             echo "</script>";
-//             die();
-//         }
-//         $img_ex=pathinfo($img_name, PATHINFO_EXTENSION);
-//         $img_ex_lc=strtolower($img_ex);
-//         $allowed_img_exs=array("jpg", "jpeg", "png");
-//     	$video_ex = pathinfo($video_name, PATHINFO_EXTENSION);
-//     	$video_ex_lc = strtolower($video_ex);
-//     	$allowed_vid_exs = array("mp4", 'webm', 'avi', 'flv');
-
-//     	if (in_array($video_ex_lc, $allowed_vid_exs) && in_array($img_ex_lc, $allowed_img_exs)) {
-    		
-//     		$new_video_name = uniqid("video-", true). '.'.$video_ex_lc;
-//     		$video_upload_path = 'UploadedVideo/'.$new_video_name;
-//     		move_uploaded_file($tmp_name, $video_upload_path);
-
-//     		// Now let's Insert the video path into database
-//             $sql = "INSERT INTO videos(video_url) 
-//                    VALUES('$new_video_name')";
-//             mysqli_query($conn, $sql);
-//             header("Location: view.php");
-//     	}else {
-//     		$em = "You can't upload files of this type";
-//     		header("Location: index.php?error=$em");
-//     	}
-//     }
-            
-//             else
-//             {
-                
-//                 if(in_array($img_ex_lc, $allowed_exs))
-//                 {
-//                     // echo "hello hi";
-//                     $new_img_name=uniqid("IMG-", true).'.'.$img_ex_lc;
-//                     $img_upload_path='uploads/'.$new_img_name;
-//                     move_uploaded_file($tmp_name,$img_upload_path );
-
-//                     $sql="INSERT INTO images(`image_url`) VALUES ('$new_img_name')";
-//                     $result=mysqli_query($conn, $sql);
-//                     if(!$result)
-//                     echo "Images not stored in DB";
-//                     header("location: view.php");
-//                 }
-//                 else
-//                 {
-//                     $em="You can't upload files of this type";
-//                     header("location: index.php?error=$em");
-//                 }
-
-                
-//             }
-//         }
-
+    $e_title=$_POST['title'];
+    // $e_image=$_POST['image'];
+    $e_venue=$_POST['venue'];
+    // $e_video=$_POST['video'];
+    $e_date=$_POST['date'];
+    $e_time=$_POST['time'];
+    $e_desc=$_POST['desc'];
+    echo "hello";
+    // image information
+    if(isset($_FILES['image']))
+    {
+    $img_name=$_FILES['image']['name'];
+    $img_size=$_FILES['image']['size'];
+    $tmp_name=$_FILES['image']['tmp_name'];
+    $image_error=$_FILES['image']['error'];
 
     
-// }
+    echo "it is working";
+
+    if ($image_error === 0) {
+       
+        $img_ex=pathinfo($img_name, PATHINFO_EXTENSION);
+        $img_ex_lc=strtolower($img_ex);
+        $allowed_img_exs=array("jpg", "jpeg", "png");
+    	
+
+    	if (in_array($img_ex_lc, $allowed_img_exs)) {
+    		
+    		
+            $new_img_name=uniqid("IMG-", true).'.'.$img_ex_lc;
+            $img_upload_path='UploadedImage/'.$new_img_name;
+            move_uploaded_file($tmp_name,$img_upload_path );
+    		// Now let's Insert the video path into database
+            $sql = "INSERT INTO events(title, image,  description, venue, date, time) 
+                   VALUES('$e_title', '$new_img_name',  '$e_desc', '$e_venue', '$e_date', '$e_time')";
+            mysqli_query($conn, $sql);
+            header("Location: events.php");
+    	}
+    }   
+    } 
+    else
+    {
+        echo "not working ji";
+    }
+}
 ?>

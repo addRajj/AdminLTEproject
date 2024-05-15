@@ -18,7 +18,7 @@ include('config/dbcon.php');
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form action="AddAdminCode.php" method="POST">
+          <form action="AddAdminCode.php" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
               <!-- Now here we will create the modal for our Resgistration process -->
               <div class="form-group">
@@ -27,15 +27,15 @@ include('config/dbcon.php');
               </div>
               <div class="form-group">
                 <label for="">Upload Image</label>
-                <input type="file"  name="image" accept="image/*">
-              </div>
-              <div class="form-group">
-                <label for="">Upload Video</label>
-                <input type="file"  name="video" id="videoUpload" accept="video/*">
+                <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png">
               </div>
               <div class="form-group">
                 <label for="">Description</label>
                 <textarea id="desc" rows="3" name="desc" cols="50" placeholder="Enter event name" class="form-control"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="">Venue</label>
+                <input type="text" name="venue" class="form-control" placeholder="Enter Venue">
               </div>
               <div class="form-group">
                 <label for="">Event Date </label>
@@ -48,10 +48,10 @@ include('config/dbcon.php');
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary" name="addEvent">Save Event</button>
-            </div>
-            </form>
-          </div>
+              <button type="submit" class="btn btn-primary" name="addEvent">Add Event</button>
+            </div> 
+        </form>
+        </div>
       </div>
     </div> 
 
@@ -120,28 +120,32 @@ include('config/dbcon.php');
                           <th>Id</th>
                           <th>Title</th>
                           <th>Image</th>
-                          <th>Video URL</th>
                           <th>Description</th>
                           <th>Venue</th>
-                          <th>Date & Time</th>
+                          <th>Date</th>
+                          <th>Time</th>
                           <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                           <?php
-                            $sql="SELECT * FROM admindetail";
+                            $sql="SELECT * FROM events";
                             $sql_result=mysqli_query($conn, $sql);
                             if(mysqli_num_rows($sql_result)>0)
                             {
                               foreach($sql_result as $row)
                               {
+                                $image_path='UploadedImage/'.$row['image'];
                                 ?>
                                   <tr>
                                     <td><?php echo $row['id']; ?></td>
-                                    <td><?php echo $row['name']; ?></td>
-                                    <td><?php echo $row['email']; ?>
+                                    <td><?php echo $row['title']; ?></td>
+                                    <td><img src="<?php echo $image_path; ?>" alt="Event Image" height="50px" width="50px">
                                     </td>
-                                    <td><?php echo $row['phone']; ?></td>
+                                    <td><?php echo $row['description']; ?></td>
+                                    <td><?php echo $row['venue']; ?></td>
+                                    <td><?php echo $row['date']; ?></td>
+                                    <td><?php echo $row['Time']; ?></td>
                                     <td>
                                       <a href="registered-edit.php?user_id=<?php echo $row['id']; ?>"  class="btn btn-info btn-sm">Edit</a>
                                       <a href="registered-delete.php?user_id=<?php echo $row['id']; ?>"class="btn btn-danger btn-sm">Delete</a>
