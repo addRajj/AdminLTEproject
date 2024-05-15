@@ -14,7 +14,7 @@
           <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Aditya Raj Sharma</a>
+          <a href="profile.php" class="d-block">Aditya Raj Sharma</a>
         </div>
       </div>
 
@@ -32,12 +32,58 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul>
-          <li><a href="registered.php">Admin Registration</a></li>
-          <li><a href="events.php">Events</a></li>
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-header">Features</li>
+          <li class="nav-item">
+            <a href="profileadmin.php" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>
+                Profile
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Admin Panel
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="registered.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admin Registration</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-calendar-alt"></i>
+              <p>
+                Event Panel
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="events.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Event Registration
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
   </aside>
+
+  
