@@ -128,12 +128,22 @@ include('config/dbcon.php');
                         </thead>
                         <tbody>
                           <?php
+                            $email="randommadebyme@gmail.com";
+                            if(isset($_GET['email']))
+                            {
+                              $email=$_GET['email'];
+                            }
                             $sql="SELECT * FROM admindetail";
                             $sql_result=mysqli_query($conn, $sql);
                             if(mysqli_num_rows($sql_result)>0)
                             {
+                              
                               foreach($sql_result as $row)
                               {
+                                if($row['email']==$email)
+                              {
+                                continue;
+                              }
                                 ?>
                                   <tr>
                                     <td><?php echo $row['id']; ?></td>

@@ -60,7 +60,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="registered.php" class="nav-link">
+                <a href="registered.php?email=<?php echo ($email);?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Admin Registration</p>
                 </a>
