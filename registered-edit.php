@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_GET['user_id']))
+{
+    die("access denied");
+}
 include('includes/header.php');
 include('includes/topbar.php');
 include('includes/sidebar.php');
@@ -36,7 +40,7 @@ include('config/dbcon.php');
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <form action="AddAdminCode.php" method="POST">
+                                    <form action="AddAdminCode.php" method="POST" enctype="multipart/form-data">
                                         <div class="modal-body">
                                         <!-- Now here we will create the modal for our Resgistration process -->
                                         <?php 
@@ -85,6 +89,13 @@ include('config/dbcon.php');
                                                             <label for="admin">admin</label>
                                                             <input type="radio" id="user" name="role" value="user">
                                                             <label for="user">user</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="">Image</label>
+                                                            <input
+                                                            type="file" name="image" class="form-control"
+                                                            value="" 
+                                                            placeholder="image">
                                                         </div>
                                                     <?php
                                                 }

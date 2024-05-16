@@ -11,10 +11,32 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <?php 
+            include 'config.php';
+            if (isset($_SESSION['email'])) {
+              $email = $_SESSION['email'];    
+              $sql_res=mysqli_query($conn,"SELECT image FROM `admindetail` where email='$email' LIMIT 1")or die();
+              if(mysqli_num_rows($sql_res)>0)
+              {
+                foreach($sql_res as $row)
+                {
+                  $image_path='UploadedImage/'.$row['image'];
+                }
+              }
+              
+            }
+
+        ?>  
+          <img src="<?php echo htmlspecialchars($image_path); ?>" class="img-circle elevation-2" alt="User Image">
+        
         </div>
         <div class="info">
-          <a href="profile.php" class="d-block">
+          <?php 
+            if (isset($_SESSION['email'])) {
+              $email = $_SESSION['email'];        
+          }
+          ?>
+          <a href="profileadmin.php?email=<?php echo ($email);?>" class="d-block">
           <?php 
           if (isset($_SESSION['email'])) {
             $email = $_SESSION['email'];
@@ -46,7 +68,7 @@
             <a href="profileadmin.php?email=<?php echo ($email);?>" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>
-                Profile
+                Admin Profile
               </p>
             </a>
           </li>
@@ -77,7 +99,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="events.php" class="nav-link">
+                <a href="events.php?email=<?php echo ($email);?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Event Registration
@@ -85,6 +107,14 @@
                 </a>
               </li>
             </ul>
+            <li class="nav-item">
+            <a href="logoutadmin.php?email=<?php echo ($email);?>" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>
+                Logout
+              </p>
+            </a>
+          </li>
           </li>
           
         </ul>

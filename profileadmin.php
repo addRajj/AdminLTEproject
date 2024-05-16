@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(empty($_GET['email']))
+{
+    die("access denied");
+}
 include('includes/header.php');
 include('includes/topbar.php');
 include('includes/sidebar.php');
@@ -36,7 +40,7 @@ include('config/dbcon.php');
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <form action="AddAdminCode.php" method="POST">
+                                    <form action="AddAdminCode.php" method="POST" enctype="multipart/form-data">
                                         <div class="modal-body">
                                         <!-- Now here we will create the modal for our Resgistration process -->
                                         <?php 
@@ -55,14 +59,14 @@ include('config/dbcon.php');
                                                             <label for="">Name</label>
                                                             <input type="text" name="name" class="form-control" 
                                                             value="<?php echo $row['name']?> "
-                                                            placeholder="Name">
+                                                            placeholder="Name" >
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="">Email Id</label>
                                                             <input type="email" class="form-control" 
                                                             name="email"
                                                             value="<?php echo $row['email']?> "
-                                                            placeholder="Email">
+                                                            placeholder="Email" disabled>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="">Phone Number</label>
@@ -79,13 +83,13 @@ include('config/dbcon.php');
                                                             placeholder="Password">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="">Role</label>
-                                                            <br>
-                                                            <input type="radio" id="admin" name="role" value="admin">
-                                                            <label for="admin">admin</label>
-                                                            <input type="radio" id="user" name="role" value="user">
-                                                            <label for="user">user</label>
+                                                            <label for="">Admin Image</label>
+                                                            <input
+                                                            type="file" name="image" 
+                                                            value="" 
+                                                            placeholder="image">
                                                         </div>
+                                                       
                                                     <?php
                                                 }
                                             }

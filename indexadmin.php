@@ -1,7 +1,9 @@
 <?php
 session_start();
-
-// Set session variables
+if(empty($_SESSION['user_email']))
+{
+  die("access denied");
+}
 $login_email=$_SESSION['user_email'];
 $_SESSION['email']=$login_email;
 include('includes/header.php');

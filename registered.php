@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(empty($_SESSION['email']))
+{
+  die("acess not given");
+}
 include('includes/header.php');
 include('includes/topbar.php');
 include('includes/sidebar.php');
@@ -18,7 +22,7 @@ include('config/dbcon.php');
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form action="AddAdminCode.php" method="POST">
+          <form action="AddAdminCode.php" method="POST"  enctype="multipart/form-data">
             <div class="modal-body">
               <!-- Now here we will create the modal for our Resgistration process -->
               <div class="form-group">
@@ -36,6 +40,10 @@ include('config/dbcon.php');
               <div class="form-group">
                 <label for="">Password</label>
                 <input type="password" name="password" class="form-control" placeholder="Name">
+              </div>
+              <div class="form-group">
+                <label for="">Image</label>
+                <input type="file" name="image" placeholder="image">
               </div>
               <div class="form-group">
                 <label for="">Role</label>
@@ -120,6 +128,7 @@ include('config/dbcon.php');
                         <tr>
                           <th>Id</th>
                           <th>Name</th>
+                          <th>Image</th>
                           <th>Email</th>
                           <th>Phone Number</th>
                           <th>Role</th>
@@ -140,14 +149,18 @@ include('config/dbcon.php');
                               
                               foreach($sql_result as $row)
                               {
+
                                 if($row['email']==$email)
-                              {
-                                continue;
-                              }
+                                {
+                                  continue;
+                                }
+                                $image_path='UploadedImage/'.$row['image'];
                                 ?>
                                   <tr>
                                     <td><?php echo $row['id']; ?></td>
                                     <td><?php echo $row['name']; ?></td>
+                                    <td><img src="<?php echo $image_path; ?>" alt="Image" height="50px" width="50px">
+                                    </td>
                                     <td><?php echo $row['email']; ?>
                                     </td>
                                     <td><?php echo $row['phone']; ?></td>

@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_GET['email']))
+{
+  die("access denied");
+}
 include('includes/header.php');
 include('includes/topbar.php');
 include('includes/sidebar.php');

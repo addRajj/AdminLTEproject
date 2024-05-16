@@ -8,26 +8,53 @@ if(isset($_POST['addAdmin']))
     $phone=$_POST['phone'];
     $password=$_POST['password'];
     $role=$_POST['role'];
-    
-    $sql1="SELECT * FROM admindetail WHERE email='$email'";
-    $sql_result=mysqli_query($conn, $sql1);
-    if(mysqli_num_rows($sql_result)>0)
+    if(isset($_FILES['image']))
     {
-        die("The email is already registered");
-        header("location: registered.php");
-    }
-    $sql="INSERT INTO admindetail(name,phone,email,password, role) VALUES('$name','$phone','$email','$password', '$role')";
+        $img_name=$_FILES['image']['name'];
+        $img_size=$_FILES['image']['size'];
+        $tmp_name=$_FILES['image']['tmp_name'];
+        $image_error=$_FILES['image']['error'];
 
-    $query_result=mysqli_query($conn, $sql);
-    if($query_result)
-    {
-        $_SESSION['status']="User Added Successfully";
-        header("location: registered.php");
-    }
+        if ($image_error === 0) {
+       
+            $img_ex=pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_lc=strtolower($img_ex);
+            $allowed_img_exs=array("jpg", "jpeg", "png");
+            
+
+            if (in_array($img_ex_lc, $allowed_img_exs)) {
+                
+                
+                $new_img_name=uniqid("IMG-", true).'.'.$img_ex_lc;
+                $img_upload_path='UploadedImage/'.$new_img_name;
+                move_uploaded_file($tmp_name,$img_upload_path );
+
+                $sql1="SELECT * FROM admindetail WHERE email='$email'";
+                $sql_result=mysqli_query($conn, $sql1);
+                if(mysqli_num_rows($sql_result)>0)
+                {
+                    die("The email is already registered");
+                    header("location: registered.php");
+                }
+                $sql="INSERT INTO admindetail(name,phone,email,password, role, image) VALUES('$name','$phone','$email','$password', '$role', '$new_img_name')";
+                $query_result=mysqli_query($conn, $sql);
+                
+                if($query_result)
+                {
+                    $_SESSION['status']="User Added Successfully";
+                    header("location: registered.php");
+                }
+                else
+                {
+                    $_SESSION['status']="User Registration Failed";
+                    header("location: registered.php");
+                }
+            }
+        }   
+    } 
     else
     {
-        $_SESSION['status']="User Registration Failed";
-        header("location: registered.php");
+        echo "Not workkinggg";
     }
 }
 if(isset($_POST['UpdateAdmin']))
@@ -38,21 +65,58 @@ if(isset($_POST['UpdateAdmin']))
     $phone=$_POST['phone'];
     $password=$_POST['password'];
     $role=$_POST['role'];
-
-    $sql="UPDATE admindetail set name='$name',phone='$phone', email='$email',password='$password' ,  role='$role' WHERE id='$user_id'";
-
-    $sql_result=mysqli_query($conn, $sql);
-    if($sql_result)
+    if(isset($_FILES['image']))
     {
-        $_SESSION['status']="User Updated Successfully";
-        header("Location: registered.php");
-    }
+        $img_name=$_FILES['image']['name'];
+        $img_size=$_FILES['image']['size'];
+        $tmp_name=$_FILES['image']['tmp_name'];
+        $image_error=$_FILES['image']['error'];
+
+        if ($image_error === 0) {
+       
+            $img_ex=pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_lc=strtolower($img_ex);
+            $allowed_img_exs=array("jpg", "jpeg", "png");
+            
+
+            if (in_array($img_ex_lc, $allowed_img_exs)) {
+                
+                
+                $new_img_name=uniqid("IMG-", true).'.'.$img_ex_lc;
+                $img_upload_path='UploadedImage/'.$new_img_name;
+                move_uploaded_file($tmp_name,$img_upload_path );
+                if(empty($role))
+                {
+                    $sql1="SELECT * FROM admindetail WHERE email='$email'" ;
+                    $sql_res=mysqli_query($conn, $sql1);
+                    if(mysqli_num_rows($sql_res)>0)
+                    {
+                        foreach($sql_result as $row)
+                        {
+                            $role=$row['role'];
+                        }
+                    }
+                }
+                $sql = "UPDATE admindetail SET 
+                    name='$name',phone='$phone', email='$email',password='$password', role='$role', image= '$new_img_name' WHERE id='$user_id'";
+                $sql_result=mysqli_query($conn, $sql);
+                if($sql_result)
+                {
+                    $_SESSION['status']="Updation Done Successfully";
+                    header("Location: registered.php");
+                }
+                else
+                {
+                    $_SESSION['status']="Updation Unsuccessful";
+                    header("Location: registered.php");
+                }
+            }
+        }   
+    } 
     else
     {
-        $_SESSION['status']="User Updation Failed";
-        header("Location: registered.php");
+        echo "Not workkinggg";
     }
-
 }
 if(isset($_POST['DeleteAdmin']))
 {
